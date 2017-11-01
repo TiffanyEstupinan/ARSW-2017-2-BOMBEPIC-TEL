@@ -24,25 +24,26 @@ public  class Tablero {
     
     public static String [][] tablero() throws IOException{
         
+        int fil=26;
+        int col=37;
+        tabl=new String[fil][col];
         
-        tabl=new String[25][36];
-        tabl[0][0]="A";
-        tabl[25][0]="B";
-        tabl[0][36]="C";
-        tabl[25][36]="D";
       
          obstaculo=3;
                
         Random numAleatorio = new Random ();
-        for (int i = 0; i < tabl.length; i++) {
-            for (int j=0;j< tabl.length;j++){
-                if ((tabl[i][j]!="A")||(tabl[i][j]!="B")||(tabl[i][j]!="C")||(tabl[i][j]!="D")){
+        for (int i = 0; i < fil; i++) {
+            for (int j=0;j< col;j++){
                     tabl[i][j] =String.valueOf(numAleatorio.nextInt(3)+1) ;   
                 }
                 
             
             }
-        }
+        tabl[0][0]="A";
+        tabl[25][0]="B";
+        tabl[0][36]="C";
+        tabl[25][36]="D";
+        
 //        FileReader file=null;
 //        
 //        

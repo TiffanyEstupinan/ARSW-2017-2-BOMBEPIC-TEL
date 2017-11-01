@@ -35,7 +35,7 @@ var waitingRoom =(function(){
             },
             
          disconnect :   function() {
-            if (stompClient != null) {
+            if (stompClient !== null) {
                 stompClient.disconnect();
             }
             //setConnected(false);
@@ -95,7 +95,7 @@ var waitingRoom =(function(){
         
         
         
-    }
+    };
     
 
 })();

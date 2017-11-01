@@ -24,17 +24,13 @@ var app =(function(){
     var nicknameB;
     var nicknameC;
     var nicknameD;
-    var cont = 0;
-return {
+    var fil=26;
+    var col=37;
+    var cont=0;
     
-    ///**
-// * 
-// *  Flecha izquierda 	37 	
-//    Flecha arriba 	38 	
-//    Flecha derecha 	39 	
-//    Flecha abajo 	40 	
-// */
-    selectImage:function() {
+    
+    
+    var  selectImage=function() {
         if (ky === 37) {
             imgs = "images/Bombermans/Player1/21.gif";
         } else if (ky === 38) {
@@ -45,51 +41,112 @@ return {
             imgs = "images/Bombermans/Player1/11.gif";
 
         }
-      },
+      };
+      
+      var bomberman= function(width, height, color, x, y, type) {
+
+            var image = new Image();
+            image.src = color;
+            image.onload = function () {
+                ctx.drawImage(image, x, y, width, height);
+            };
+
+        };
+        
+        
+      var bomber=function(width, height, color, x, y, type) {
+
+            var image = new Image();
+            image.src = color;
+            //image.onload = function(){
+            ctx.drawImage(image, x, y, width, height);
+            //};
+
+        };
+        
+        var isUpperCase=function(str) {
+                return str === str.toUpperCase();
+            };
+            
+    
+           
+         var bloque=function(width, height, color, x, y) {
+                ctx.fillStyle = color;
+                ctx.fillRect(x, y, width, height);
+             };
+             
+        var disconnect=function() {
+            if (stompClient != null) {
+                  stompClient.disconnect();
+              }
+              //setConnected(false);
+              console.log("Disconnected");
+          };
+          
+         var moverPersonaje= function(key) {
+                if (36 < key && key < 41) {
+                    ky = key;
+                    stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, k: key, mem: mymem}));
+                         }
+
+                };
+return {
+    
+    ///**
+// * 
+// *  Flecha izquierda 	37 	
+//    Flecha arriba 	38 	
+//    Flecha derecha 	39 	
+//    Flecha abajo 	40 	
+// */
+   
       
 //3 es un obstaculo
 ////0 un espacio en blanco
 ////2 pared rompible
 ////letras en mayusculas son jugadores
-    cargarSala:function () {
+
+
+    cargarsalas:function () {
         var salaid= sessionStorage.getItem('sala');
-         alert(salaid);
+         console.log("heyyyy");
          $.get("/salas/"+ salaid+ "/tablero", function (data) {
              var tablero = data[0];
 
-             for (i = 0; i < tablero.length; i++) {
-                 for (j = 0; j < tablero[i].length; j++) {
+             for (i = 0; i < fil; i++) {
+                 for (j = 0; j < col; j++) {
                      if (tablero[i][j] === "3") {
-                         var myObstacle = new bloque(20, 20, "blue", j * 20, i * 20);
+                               bloque(20, 20, "blue", j * 20, i * 20);
+                           
 
 
                      } else if (tablero[i][j] === "0") {
-                         var myObstacle = new bloque(20, 20, "black", j * 20, i * 20);
+                        bloque(20, 20, "black", j * 20, i * 20);
 
 
                      } else if (tablero[i][j] === "2") {
-                         var myObstacle = new bloque(20, 20, "black", j * 20, i * 20);
+                        bloque(20, 20, "black", j * 20, i * 20);
 
 
 
 
                      } else if (tablero[i][j] === "A") {
-                         var myObstacle = new bloque(20, 20, "black", j * 20, i * 20);
+                        bloque(20, 20, "black", j * 20, i * 20);
 
-                         var myObstacle = new bomberman(20, 20, "images/Bombermans/Player1/11.gif", j * 20, i * 20, "image");
+                         bomberman(20, 20, "images/Bombermans/Player1/11.gif", j * 20, i * 20, "image");
 
                      } else if (tablero[i][j] === "B") {
-                         var myObstacle = new bloque(20, 20, "black", j * 20, i * 20);
-                         var myObstacle = new bomberman(20, 20, "images/Bombermans/Player2/11.gif", j * 20, i * 20, "image");
+                       bloque(20, 20, "black", j * 20, i * 20);
+                        bomberman(20, 20, "images/Bombermans/Player2/11.gif", j * 20, i * 20, "image");
                      } else if (tablero[i][j] === "C") {
-                         var myObstacle = new bloque(20, 20, "black", j * 20, i * 20);
+                         bloque(20, 20, "black", j * 20, i * 20);
 
-                         var myObstacle = new bomberman(20, 20, "images/Bombermans/Player3/11.gif", j * 20, i * 20, "image");
+                         bomberman(20, 20, "images/Bombermans/Player3/11.gif", j * 20, i * 20, "image");
 
                     } else if (tablero[i][j] === "D") {
-                         var myObstacle = new bloque(20, 20, "black", j * 20, i * 20);
+                        bloque(20, 20, "black", j * 20, i * 20);
 
-                         var myObstacle = new bomberman(20, 20, "images/Bombermans/Player4/11.gif", j * 20, i * 20, "image");
+                        bomberman(20, 20, "images/Bombermans/Player4/11.gif", j * 20, i * 20, "image");
 
 
                  }
@@ -128,15 +185,16 @@ return {
 
 
 
-         } )},
+         } );},
      
      connect:function () {
                 var socket = new SockJS('/stompendpoint');
                 stompClient = Stomp.over(socket);
-                stompClient.connect({}, function (frame) {
+                     
+         stompClient.connect({}, function (frame) {
                 console.log('Connected: ' + frame);
                 var $worked = $("#worked");
-
+                
                 function update() {
 
                     cont += 1;
@@ -156,7 +214,7 @@ return {
                     } else {
                         setTimeout(update, 1000);
                     }
-                }
+                };
 
                 setTimeout(update, 1000);
 
@@ -228,7 +286,7 @@ return {
                     $("#buttons").append($('<a href="index.html" class="btn yellow">Volver al inicio</a>'));
 
 
-                    disconnect();
+                   // disconnect();
 
                 });
 
@@ -249,66 +307,21 @@ return {
 
                 });
 
-
-                this.cargarSala();
-
-
+                
+                
+                
 
             });
+            this.cargarsalas();
            },
            
-//    bomberman: function(width, height, color, x, y, type) {
-//
-//            var image = new Image();
-//            image.src = color;
-//            image.onload = function () {
-//                ctx.drawImage(image, x, y, width, height);
-//            };
-//
-//        },
-//        
-//        
-//      bomber:function(width, height, color, x, y, type) {
-//
-//            var image = new Image();
-//            image.src = color;
-//            //image.onload = function(){
-//            ctx.drawImage(image, x, y, width, height);
-//            //};
-//
-//        },
-//        
-//         isUpperCase:function(str) {
-//                return str === str.toUpperCase();
-//            },
-//            
-//            
-//         bloque:function(width, height, color, x, y) {
-//                ctx.fillStyle = color;
-//                ctx.fillRect(x, y, width, height);
-//             },
-//             
-//        disconnect:function() {
-//            if (stompClient != null) {
-//                  stompClient.disconnect();
-//              }
-//              //setConnected(false);
-//              console.log("Disconnected");
-//          },
-//          
-//          moverPersonaje: function(key) {
-//                if (36 < key && key < 41) {
-//                    ky = key;
-//                    stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, k: key, mem: mymem}));
-//                         }
-//
-//                },
-//                
-//                
-          init: function () {
+    
+                
+                
+        init: function () {
                     console.info('loading script!...');
                     alert('Que comience el Juego!!!!!');
-                    connect();
+                    this.connect();
                     canvas = document.getElementById('cnv');
                     ctx = canvas.getContext('2d');
 
