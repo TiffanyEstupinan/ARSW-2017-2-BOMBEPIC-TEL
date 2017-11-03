@@ -115,7 +115,16 @@ public class BombRESTController {
     }
 
        
-       
+       @RequestMapping(path = "/{salanum}/info",method = RequestMethod.GET)
+    public ResponseEntity<?> getInformacion(@PathVariable(name = "salanum") String salanum) {
+        
+        try {
+            return new ResponseEntity<>(services.getInfo(Integer.parseInt(salanum)),HttpStatus.ACCEPTED);
+        } catch (NumberFormatException | ServicesException ex){
+            Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("/{salanum}/ must be an integer value.",HttpStatus.BAD_REQUEST);
+        }
+    }
      
      
      

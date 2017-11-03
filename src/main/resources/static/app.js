@@ -347,8 +347,8 @@ return {
                         if (data === data.toUpperCase()) {
                             mymem = 2;
                             if (data === 'A') {
-                                myposx = 23;
-                               myposy = 1;
+                                myposx = 26;
+                               myposy = 10;
                             } else if (data === 'B') {
                                 myposx = 1;
                                 myposy = 1;
