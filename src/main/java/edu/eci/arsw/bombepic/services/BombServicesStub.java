@@ -11,6 +11,7 @@ import edu.eci.arsw.bombepic.model.Sala;
 import edu.eci.arsw.bombepic.model.Jugadores;
 import edu.eci.arsw.bombepic.model.Tablero;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 @Service
 
 public class BombServicesStub implements BombServices{
+    
     private ConcurrentHashMap<Integer, Jugadores> salasData=new ConcurrentHashMap<>();
     private String[][] mat;
     private int salas=0;
@@ -79,14 +81,20 @@ public class BombServicesStub implements BombServices{
         this.salas=sala;
 
     }
-
     
+   
 
     @Override
     public List<InformacionJuego> getInfo(int sala) throws ServicesException {
         return salasData.get(sala).getInformacion();
 
 
+    }
+    
+    @Override
+    public String getId(int sala, String user) throws ServicesException {
+        return salasData.get(sala).getIds().get(user);  
+    
     }
 
     @Override
@@ -100,6 +108,10 @@ public class BombServicesStub implements BombServices{
 
 
     }
+
+   
+
+   
 
     
  

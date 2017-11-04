@@ -85,10 +85,24 @@ public class BombRESTController {
             return new ResponseEntity<>("/{salanum}/ must be an integer value.",HttpStatus.BAD_REQUEST);
         }
 }
+    
+    @RequestMapping(path = "/{salanum}/{id}",method = RequestMethod.GET)
+    public ResponseEntity<?> getId(@PathVariable(name = "salanum") String salanum,@PathVariable(name = "id") String id) {
+        
+        try {
+            return new ResponseEntity<>(services.getId(Integer.parseInt(salanum),id),HttpStatus.ACCEPTED);
+        } catch (ServicesException ex) {
+            Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getLocalizedMessage(),HttpStatus.NOT_FOUND);
+        } catch (NumberFormatException ex){
+            Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("/{salanum}/ must be an integer value.",HttpStatus.BAD_REQUEST);
+        }
+    }
        
         @RequestMapping(path = "/{salanum}/tablero",method = RequestMethod.GET)
     public ResponseEntity<?> getTablero(@PathVariable(name = "salanum") String salanum) {
-            System.out.println(salanum);
+            System.out.println("IMPRIMIENDO EN GETTABLERO RESTCONTROLLER   " + salanum);
         try {
             return new ResponseEntity<>(services.getTablero(),HttpStatus.ACCEPTED);
          
@@ -119,6 +133,7 @@ public class BombRESTController {
     public ResponseEntity<?> getInformacion(@PathVariable(name = "salanum") String salanum) {
         
         try {
+            System.out.println("IMPRIMIENDO EN GETINFO DEL REST " + services.getInfo(Integer.parseInt(salanum)));
             return new ResponseEntity<>(services.getInfo(Integer.parseInt(salanum)),HttpStatus.ACCEPTED);
         } catch (NumberFormatException | ServicesException ex){
             Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,10 +141,21 @@ public class BombRESTController {
         }
     }
      
-     
-     
-     
-     
+      @RequestMapping(path = "/tablero",method = RequestMethod.GET)
+    public ResponseEntity<?> getTablero() {
+        
+        try {
+            ArrayList<Object> informacion = new ArrayList();
+            informacion.add(services.getTablero());
+            return new ResponseEntity<>(informacion,HttpStatus.ACCEPTED);
+        } catch (ServicesException ex) {
+            Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getLocalizedMessage(),HttpStatus.NOT_FOUND);
+        } catch (NumberFormatException ex){
+            Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("/{salanum}/ must be an integer value.",HttpStatus.BAD_REQUEST);
+        }
+    }
      
              
      

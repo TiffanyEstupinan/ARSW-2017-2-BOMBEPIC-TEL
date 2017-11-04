@@ -64,8 +64,9 @@ var app =(function(){
 
         };
         
-        var isUpperCase=function(str) {
-                return str === str.toUpperCase();
+        var isUpperCase =function(str) {
+                cadena = str;
+                return cadena.toUpperCase();
             };
             
     
@@ -108,10 +109,11 @@ return {
 
 
     cargarsalas:function () {
-        var salaid= sessionStorage.getItem('sala');
+        //var salaid= sessionStorage.getItem('sala');
          console.log("heyyyy");
-         $.get("/salas/"+ salaid+ "/tablero", function (data) {
+         $.get("/salas/tablero", function (data) {
              var tablero = data[0];
+             console.log("cargar salas app" + data[0]);
 
              for (i = 0; i < fil; i++) {
                  for (j = 0; j < col; j++) {
@@ -131,7 +133,7 @@ return {
 
 
                      } else if (tablero[i][j] === "A") {
-                        bloque(20, 20, "black", j * 20, i * 20);
+                        bloque(20, 20, "black", j * 30, i * 30);
 
                          bomberman(20, 20, "images/Bombermans/Player1/11.gif", j * 20, i * 20, "image");
 
@@ -156,7 +158,7 @@ return {
              var myObstacle = new bomberman(20, 20, "images/Bombermans/Player3/11.gif", 9 * 20, 26 * 20.2, "image");
              var myObstacle = new bomberman(20, 20, "images/Bombermans/Player4/11.gif", 9 * 20, 25 * 20.2, "image");
 
-            $.get("/salas/" + sessionStorage.getItem(salaid) + "/info", function (data) {
+             $.get("/salas/" + sessionStorage.getItem('sala') + "/info", function (data) {
                 for (i = 0; i < data.length; i++) {
                      if (data[i].alias === "A") {
                          ctx.font = "bold 18px sans-serif";
@@ -340,11 +342,12 @@ return {
 
 
 
-                    $.get("/salas/" + sessionStorage.getItem('sala') , function (data) {
+                    $.get("/salas/" + sessionStorage.getItem('sala')+ "/info" , function (data) {
                         myplayer = data;
+                      
 
 
-                        if (data === data.toUpperCase()) {
+                        
                             mymem = 2;
                             if (data === 'A') {
                                 myposx = 26;
@@ -359,7 +362,7 @@ return {
                                 myposx = 23;
                                 myposy = 34;
                             }
-                        } 
+                        
 
             });
 

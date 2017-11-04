@@ -13,6 +13,9 @@ public class InformacionJuego {
     String name;
     String info;
 
+    
+    public InformacionJuego(){}
+    
     public InformacionJuego(String name, String nick) {
         this.name = name;
         this.info = info;

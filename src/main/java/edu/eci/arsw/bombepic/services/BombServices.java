@@ -8,6 +8,7 @@ package edu.eci.arsw.bombepic.services;
 import edu.eci.arsw.bombepic.model.InformacionJuego;
 import edu.eci.arsw.bombepic.model.Jugador;
 import edu.eci.arsw.bombepic.model.Sala;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,7 +27,7 @@ public interface BombServices {
     
     public void setSalaDisponible(int sala)throws ServicesException;
     
-  
+    public String getId(int sala, String user)  throws ServicesException;
     
     public List<InformacionJuego> getInfo(int sala)throws ServicesException;
     
