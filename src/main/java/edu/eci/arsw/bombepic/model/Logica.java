@@ -74,7 +74,7 @@ public class Logica implements LogicaInter{
         //para el jugador 
         if (matriz[j.getX()][j.getY()].equals("B") || matriz[j.getX()][j.getY()].equals("A") || matriz[j.getX()][j.getY()].equals("C") || matriz[j.getX()][j.getY()].equals("D")) {
              if (j.getKey() == 40) {
-                    if (!(matriz[j.getX() + 1][j.getY()]).equals("3") && !(matriz[j.getX() + 1][j.getY()]).equals("A") && !(matriz[j.getX() + 1][j.getY()]).equals("B") && !(matriz[j.getX() + 1][j.getY()]).equals("C") && !(matriz[j.getX() + 1][j.getY()]).equals("D")) {
+                    /*if (!(matriz[j.getX() + 1][j.getY()]).equals("3") && !(matriz[j.getX() + 1][j.getY()]).equals("A") && !(matriz[j.getX() + 1][j.getY()]).equals("B") && !(matriz[j.getX() + 1][j.getY()]).equals("C") && !(matriz[j.getX() + 1][j.getY()]).equals("D")) {
                         if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
                             int[] answ = muerte(data, matriz);
@@ -108,7 +108,7 @@ public class Logica implements LogicaInter{
 
                         
                         }
-   
+                   */         
                     }
                     else{
                         matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
@@ -123,7 +123,7 @@ public class Logica implements LogicaInter{
 
              }else if(j.getKey() == 37){
                  if (!(matriz[j.getX()][j.getY() - 1]).equals("3") && !(matriz[j.getX()][j.getY() - 1]).equals("A") && !(matriz[j.getX()][j.getY() - 1]).equals("B") && !(matriz[j.getX()][j.getY() - 1]).equals("C") && !(matriz[j.getX()][j.getY() - 1]).equals("D")) {
-                     if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
+                    /* if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
                             int[] answ = muerte(data, matriz);
                             matriz[answ[0]][answ[1]] = data;
@@ -156,8 +156,8 @@ public class Logica implements LogicaInter{
 
                         
                         }
-   
-                    }
+   */
+                    } 
                     else{
                         matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
@@ -174,7 +174,7 @@ public class Logica implements LogicaInter{
                  
                  }else if (j.getKey() == 38){
                      if (!(matriz[j.getX() - 1][j.getY()]).equals("3") && !(matriz[j.getX() - 1][j.getY()]).equals("A") && !(matriz[j.getX() - 1][j.getY()]).equals("B") && !(matriz[j.getX() - 1][j.getY()]).equals("C") && !(matriz[j.getX() - 1][j.getY()]).equals("D")) {
-                         if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
+                        /* if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
                             int[] answ = muerte(data, matriz);
                             matriz[answ[0]][answ[1]] = data;
@@ -207,7 +207,7 @@ public class Logica implements LogicaInter{
 
                         
                         }
-   
+   */
                     }
                     else{
                         matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
@@ -223,7 +223,7 @@ public class Logica implements LogicaInter{
                      
               }else if (j.getKey() == 39) {
                     if (!(matriz[j.getX()][j.getY() + 1]).equals("3") && !(matriz[j.getX()][j.getY() + 1]).equals("A") && !(matriz[j.getX()][j.getY() + 1]).equals("B") && !(matriz[j.getX()][j.getY() + 1]).equals("C") && !(matriz[j.getX()][j.getY() + 1]).equals("D")) {
-                                  if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
+                                  /*if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
                             int[] answ = muerte(data, matriz);
                             matriz[answ[0]][answ[1]] = data;
@@ -256,7 +256,7 @@ public class Logica implements LogicaInter{
 
                         
                         }
-   
+   */
                     }
                     else{ //solo avanzar 
                         matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
@@ -272,7 +272,7 @@ public class Logica implements LogicaInter{
               
               
               
-              }
+              //}
              
                      
                  

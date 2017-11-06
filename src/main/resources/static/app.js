@@ -7,8 +7,8 @@ var app =(function(){
 
     var stompClient = null;
     var myplayer = null;
-    var myposx = null;
-    var myposy = null;
+    var myposx = 0;
+    var myposy = 0;
     var ctx = null;
     var mymem = null;
     var shift = 0;
@@ -24,8 +24,8 @@ var app =(function(){
     var nicknameB;
     var nicknameC;
     var nicknameD;
-    var fil=26;
-    var col=37;
+    var fil=28;
+    var col=36;
     var cont=0;
     
     
@@ -87,7 +87,7 @@ var app =(function(){
          var moverPersonaje= function(key) {
                 if (36 < key && key < 41) {
                     ky = key;
-                    stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, k: key, mem: mymem}));
+                    stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, key: key, memo: mymem}));
                          }
 
                 };
@@ -109,12 +109,11 @@ return {
 
 
     cargarsalas:function () {
-        //var salaid= sessionStorage.getItem('sala');
-         console.log("heyyyy");
+         console.log("Cargando sala...");
          $.get("/salas/tablero", function (data) {
+             
              var tablero = data[0];
-             console.log("cargar salas app" + data[0]);
-
+             console.log(tablero);
              for (i = 0; i < fil; i++) {
                  for (j = 0; j < col; j++) {
                      if (tablero[i][j] === "3") {
@@ -127,37 +126,37 @@ return {
 
 
                      } else if (tablero[i][j] === "2") {
-                        bloque(20, 20, "black", j * 20, i * 20);
+                        bloque(20, 20, "red", j * 20, i * 20);
 
 
-
+                //DIBUJANDO JUGADORES        
 
                      } else if (tablero[i][j] === "A") {
                         bloque(20, 20, "black", j * 30, i * 30);
+                        bomberman(20, 20, "images/Bombermans/Player1/11.gif", j * 20, i * 20, "image");
 
-                         bomberman(20, 20, "images/Bombermans/Player1/11.gif", j * 20, i * 20, "image");
 
                      } else if (tablero[i][j] === "B") {
                        bloque(20, 20, "black", j * 20, i * 20);
-                        bomberman(20, 20, "images/Bombermans/Player2/11.gif", j * 20, i * 20, "image");
+                       bomberman(20, 20, "images/Bombermans/Player2/11.gif", j * 20, i * 20, "image");
+                        
+                        
                      } else if (tablero[i][j] === "C") {
                          bloque(20, 20, "black", j * 20, i * 20);
-
                          bomberman(20, 20, "images/Bombermans/Player3/11.gif", j * 20, i * 20, "image");
+                         
+                         
 
                     } else if (tablero[i][j] === "D") {
                         bloque(20, 20, "black", j * 20, i * 20);
-
                         bomberman(20, 20, "images/Bombermans/Player4/11.gif", j * 20, i * 20, "image");
-
-
                  }
              }}
-             var myObstacle = new bomberman(20, 20, "images/Bombermans/Player1/11.gif", 0 * 20, 26 * 20.2, "image");
+            /* var myObstacle = new bomberman(20, 20, "images/Bombermans/Player1/11.gif", 0 * 20, 26 * 20.2, "image");
              var myObstacle = new bomberman(20, 20, "images/Bombermans/Player2/11.gif", 0 * 20, 25 * 20.2, "image");
-             var myObstacle = new bomberman(20, 20, "images/Bombermans/Player3/11.gif", 9 * 20, 26 * 20.2, "image");
+             var myObstacle = new bomberman(20, 20, "images/Bombermans/Player3/11.gif", 19 * 20, 26 * 20.2, "image");
              var myObstacle = new bomberman(20, 20, "images/Bombermans/Player4/11.gif", 9 * 20, 25 * 20.2, "image");
-
+             */
              $.get("/salas/" + sessionStorage.getItem('sala') + "/info", function (data) {
                 for (i = 0; i < data.length; i++) {
                      if (data[i].alias === "A") {
@@ -218,16 +217,17 @@ return {
                     }
                 };
 
-                setTimeout(update, 1000);
+                setTimeout(update, 300);
 
                 stompClient.subscribe('/topic/actualizarJuego.' + sessionStorage.getItem('sala'), function (data) {
                     var tablero = JSON.parse(data.body);
-
+                    alert("actualiza !");
                    for (i = 0; i < tablero.length; i++) {
-
-
+                                
+                        alert("forrrrrr");
 
                         if (tablero[i].key === "A") {
+                            console.log("a mover el bote ");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player1/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                             if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;
@@ -322,7 +322,7 @@ return {
                 
         init: function () {
                     console.info('loading script!...');
-                    alert('Que comience el Juego!!!!!');
+                    
                     this.connect();
                     canvas = document.getElementById('cnv');
                     ctx = canvas.getContext('2d');
@@ -334,7 +334,7 @@ return {
 
 
 
-                        console.log(key);
+                        //console.log(key);
                     });
                     window.addEventListener('keyup', function (e) {
                         key = false;
@@ -342,8 +342,10 @@ return {
 
 
 
-                    $.get("/salas/" + sessionStorage.getItem('sala')+ "/info" , function (data) {
-                        myplayer = data;
+                    //$.get("/salas/" + sessionStorage.getItem('sala')+ "/info" , function (data) {
+                      
+                       $.get("/salas/" + sessionStorage.getItem('sala') + "/" + sessionStorage.getItem('identificador'), function (data){ 
+                            myplayer = data;
                       
 
 

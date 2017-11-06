@@ -18,65 +18,51 @@ import java.util.logging.Logger;
  * @author tiffany
  */
 public  class Tablero {
-    public static int obstaculo;
     public  static String[][] tabl;
     
     
     public static String [][] tablero() throws IOException{
         
-        int fil=26;
-        int col=37;
+        int fil=28;
+        int col=36;
         tabl=new String[fil][col];
         
-      
-         obstaculo=3;
-               
-        Random numAleatorio = new Random ();
+        
+        
+          //recubre el tablero de pared irrompible 
         for (int i = 0; i < fil; i++) {
-            for (int j=0;j< col;j++){
-                    tabl[i][j] =String.valueOf(numAleatorio.nextInt(3)+1) ;   
+           tabl[i][0]=String.valueOf(3);
+           tabl[i][col-1]=String.valueOf(3);
+           for (int j = 0; j < col; j++) {
+               tabl[0][j]=String.valueOf(3);
+               tabl[fil-1][j]=String.valueOf(3);
+                
+            }
+           
+        } 
+         
+        // llena aleatoriamente de pared  rompible e irrompible      
+        Random numAleatorio = new Random ();
+        for (int i = 1; i < fil-1; i++) {        
+            for (int j=1;j< col-1;j++){ 
+                    tabl[i][j] =String.valueOf(numAleatorio.nextInt(2)+1) ;   
                 }
                 
             
             }
-        tabl[0][0]="A";
-        tabl[25][0]="B";
-        tabl[0][36]="C";
-        tabl[25][36]="D";
         
-//        FileReader file=null;
-//        
-//        
-//        
-//        try{
-//            String x;
-//            file= new FileReader("tablero.txt");
-//            
-//            BufferedReader b= new BufferedReader(file);
-//            int i=0;
-//            x=b.readLine();
-//            String [] cadena=x.split(" ");
-//            
-//            int filas=Integer.valueOf(cadena[0]);
-//            int colu=Integer.valueOf(cadena[1]);
-//            obstaculo=Integer.valueOf(cadena[2]);
-//            
-//            t1=new String[filas][colu];
-//            for (int j = 0; j < filas; j++) {
-//                
-//                x=b.readLine();
-//                cadena=x.split("\t");
-//                for (int k = 0; k < cadena.length; k++) {
-//                    t1[j][k]= cadena[k];
-//                    System.out.println("haciendo tablero" + t1);
-//                    
-//                }
-//                
-//            }
-//            b.close();
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        
+        
+       
+      
+         //pone los jugadores en el tablero 
+         
+        tabl[1][1]="A";
+        tabl[fil-2][1]="B";
+        tabl[1][col-2]="C";
+        tabl[fil-2][col-2]="D";
+        
+
         return tabl;
     }
 }

@@ -43,6 +43,7 @@ public class STOMPMessagesHandler {
             ActualizaJuego ac = Logic.mover(idsala, j);
             if (ac.getActualizaciones()!=null){
                 msgt.convertAndSend("/topic/actualizarJuego." + String.valueOf(idsala), ac.getActualizaciones());
+                System.out.println(" RECIBE " +  ac);
                 
                 if (ac.getRompibles()){
                     ac.setRompibles(false);
