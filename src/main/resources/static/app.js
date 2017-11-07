@@ -87,6 +87,7 @@ var app =(function(){
          var moverPersonaje= function(key) {
                 if (36 < key && key < 41) {
                     ky = key;
+                    alert("MOVER PERSONAJE !!");
                     stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, key: key, memo: mymem}));
                          }
 
@@ -113,7 +114,7 @@ return {
          $.get("/salas/tablero", function (data) {
              
              var tablero = data[0];
-             console.log(tablero);
+             //console.log(tablero);
              for (i = 0; i < fil; i++) {
                  for (j = 0; j < col; j++) {
                      if (tablero[i][j] === "3") {
@@ -221,13 +222,12 @@ return {
 
                 stompClient.subscribe('/topic/actualizarJuego.' + sessionStorage.getItem('sala'), function (data) {
                     var tablero = JSON.parse(data.body);
-                    alert("actualiza !");
+                    //alert("actualiza !");
                    for (i = 0; i < tablero.length; i++) {
                                 
-                        alert("forrrrrr");
-
+                         console.log(tablero[i]);
                         if (tablero[i].key === "A") {
-                            console.log("a mover el bote ");
+                            console.log("a mover el bote "  );
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player1/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                             if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;
@@ -236,6 +236,7 @@ return {
                            }
 
                         } else if (tablero[i].key === "B") {
+                             console.log("a mover el bote ");
                            var myObstacle = new bomber(20, 20, "images/Bombermans/Player2/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                            if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;
@@ -243,6 +244,7 @@ return {
                             }
 
                         } else if (tablero[i].key === "C") {
+                             console.log("a mover el bote ");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player3/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                             if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;
@@ -250,6 +252,7 @@ return {
                             }
 
                         } else if (tablero[i].key === "D") {
+                             console.log("a mover el bote ");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player4/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                             if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;

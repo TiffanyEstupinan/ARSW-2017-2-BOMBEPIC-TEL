@@ -74,6 +74,16 @@ public class Logica implements LogicaInter{
         //para el jugador 
         if (matriz[j.getX()][j.getY()].equals("B") || matriz[j.getX()][j.getY()].equals("A") || matriz[j.getX()][j.getY()].equals("C") || matriz[j.getX()][j.getY()].equals("D")) {
              if (j.getKey() == 40) {
+                        matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
+                        matriz[j.getX()][j.getY()] = "0";
+                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
+                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                        actualizaciones.add(e);
+                        actualizaciones.add(e2);
+                        ac.setActualizaciones(actualizaciones);
+                    }
+                 
+                 
                     /*if (!(matriz[j.getX() + 1][j.getY()]).equals("3") && !(matriz[j.getX() + 1][j.getY()]).equals("A") && !(matriz[j.getX() + 1][j.getY()]).equals("B") && !(matriz[j.getX() + 1][j.getY()]).equals("C") && !(matriz[j.getX() + 1][j.getY()]).equals("D")) {
                         if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
@@ -108,10 +118,10 @@ public class Logica implements LogicaInter{
 
                         
                         }
-                   */         
+                            
                     }
                     else{
-                        matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
+                       matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
                         Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
                         Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
@@ -119,10 +129,19 @@ public class Logica implements LogicaInter{
                         actualizaciones.add(e2);
                         ac.setActualizaciones(actualizaciones);
                     
-                    }
+                    }*/
 
              }else if(j.getKey() == 37){
-                 if (!(matriz[j.getX()][j.getY() - 1]).equals("3") && !(matriz[j.getX()][j.getY() - 1]).equals("A") && !(matriz[j.getX()][j.getY() - 1]).equals("B") && !(matriz[j.getX()][j.getY() - 1]).equals("C") && !(matriz[j.getX()][j.getY() - 1]).equals("D")) {
+                // if (!(matriz[j.getX()][j.getY() - 1]).equals("3") && !(matriz[j.getX()][j.getY() - 1]).equals("A") && !(matriz[j.getX()][j.getY() - 1]).equals("B") && !(matriz[j.getX()][j.getY() - 1]).equals("C") && !(matriz[j.getX()][j.getY() - 1]).equals("D")) {
+                        matriz[j.getX()][j.getY() - 1] = matriz[j.getX()][j.getY()];
+                        matriz[j.getX()][j.getY()] = "0";
+                        Elemento e = new Elemento(j.getX(), j.getY() - 1, matriz[j.getX()][j.getY() - 1], j.getMemo());
+                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                        actualizaciones.add(e);
+                        actualizaciones.add(e2);
+                        ac.setActualizaciones(actualizaciones);
+                     
+                 
                     /* if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
                             int[] answ = muerte(data, matriz);
@@ -156,10 +175,10 @@ public class Logica implements LogicaInter{
 
                         
                         }
-   */
+   
                     } 
                     else{
-                        matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
+                       matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
                         Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
                         Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
@@ -167,13 +186,21 @@ public class Logica implements LogicaInter{
                         actualizaciones.add(e2);
                         ac.setActualizaciones(actualizaciones);
                     
-                    }
+                    } */
                  
                  
                  
                  
-                 }else if (j.getKey() == 38){
-                     if (!(matriz[j.getX() - 1][j.getY()]).equals("3") && !(matriz[j.getX() - 1][j.getY()]).equals("A") && !(matriz[j.getX() - 1][j.getY()]).equals("B") && !(matriz[j.getX() - 1][j.getY()]).equals("C") && !(matriz[j.getX() - 1][j.getY()]).equals("D")) {
+                 } else if (j.getKey() == 38){
+                     
+                      matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
+                        matriz[j.getX()][j.getY()] = "0";
+                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
+                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                        actualizaciones.add(e);
+                        actualizaciones.add(e2);
+                        ac.setActualizaciones(actualizaciones);
+                   //  if (!(matriz[j.getX() - 1][j.getY()]).equals("3") && !(matriz[j.getX() - 1][j.getY()]).equals("A") && !(matriz[j.getX() - 1][j.getY()]).equals("B") && !(matriz[j.getX() - 1][j.getY()]).equals("C") && !(matriz[j.getX() - 1][j.getY()]).equals("D")) {
                         /* if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
                             int[] answ = muerte(data, matriz);
@@ -207,10 +234,10 @@ public class Logica implements LogicaInter{
 
                         
                         }
-   */
+   
                     }
                     else{
-                        matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
+                       matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
                         Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
                         Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
@@ -219,10 +246,17 @@ public class Logica implements LogicaInter{
                         ac.setActualizaciones(actualizaciones);
                     
                     }
-                         
+                         */
                      
               }else if (j.getKey() == 39) {
-                    if (!(matriz[j.getX()][j.getY() + 1]).equals("3") && !(matriz[j.getX()][j.getY() + 1]).equals("A") && !(matriz[j.getX()][j.getY() + 1]).equals("B") && !(matriz[j.getX()][j.getY() + 1]).equals("C") && !(matriz[j.getX()][j.getY() + 1]).equals("D")) {
+                        matriz[j.getX()][j.getY() + 1] = matriz[j.getX()][j.getY()];
+                        matriz[j.getX()][j.getY()] = "0";
+                        Elemento e = new Elemento(j.getX(), j.getY() + 1, matriz[j.getX()][j.getY() + 1], j.getMemo());
+                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                        actualizaciones.add(e);
+                        actualizaciones.add(e2);
+                        ac.setActualizaciones(actualizaciones);
+                   // if (!(matriz[j.getX()][j.getY() + 1]).equals("3") && !(matriz[j.getX()][j.getY() + 1]).equals("A") && !(matriz[j.getX()][j.getY() + 1]).equals("B") && !(matriz[j.getX()][j.getY() + 1]).equals("C") && !(matriz[j.getX()][j.getY() + 1]).equals("D")) {
                                   /*if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
                             int[] answ = muerte(data, matriz);
@@ -256,7 +290,7 @@ public class Logica implements LogicaInter{
 
                         
                         }
-   */
+   
                     }
                     else{ //solo avanzar 
                         matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
@@ -267,7 +301,7 @@ public class Logica implements LogicaInter{
                         actualizaciones.add(e2);
                         ac.setActualizaciones(actualizaciones);
            
-                }
+                }*/
 
               
               
@@ -277,13 +311,13 @@ public class Logica implements LogicaInter{
                      
                  
                  }
-                salasMatrices.get(idsala).setMatriz(matriz);
+            salasMatrices.get(idsala).setMatriz(matriz);
          try {
              services.setSalasMat(salasMatrices);
          } catch (ServicesException ex) {
              Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
          }
-             
+             System.out.println("LOGICA MOVER"+ ac);
              return ac;
              
              }
