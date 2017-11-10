@@ -72,8 +72,10 @@ public class Logica implements LogicaInter{
         String[][] matriz = salasMatrices.get(idsala).getMatriz();
         
         //para el jugador 
-        if (matriz[j.getX()][j.getY()].equals("B") || matriz[j.getX()][j.getY()].equals("A") || matriz[j.getX()][j.getY()].equals("C") || matriz[j.getX()][j.getY()].equals("D")) {
-             if (j.getKey() == 40) {
+        System.out.println(matriz[j.getX()][j.getY()]);
+        System.out.println("hioooaladsadsa");
+        if (j.getKey() == 40) {
+                        System.out.println("MUEVE A ABAJO ");
                         matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
                         Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
@@ -131,12 +133,16 @@ public class Logica implements LogicaInter{
                     
                     }*/
 
-             }else if(j.getKey() == 37){
+             else if(j.getKey() == 37){
                 // if (!(matriz[j.getX()][j.getY() - 1]).equals("3") && !(matriz[j.getX()][j.getY() - 1]).equals("A") && !(matriz[j.getX()][j.getY() - 1]).equals("B") && !(matriz[j.getX()][j.getY() - 1]).equals("C") && !(matriz[j.getX()][j.getY() - 1]).equals("D")) {
+                        System.out.println("37 A IZQUIERDA ");
                         matriz[j.getX()][j.getY() - 1] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
                         Elemento e = new Elemento(j.getX(), j.getY() - 1, matriz[j.getX()][j.getY() - 1], j.getMemo());
+                        //Elemento e = new Elemento(j.getX(), j.getY() - 1,Integer.toString(j.getKey()), j.getMemo());
                         Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                        System.out.println("que es " + e.getKey());
+                        System.out.println("que es2 " + e2.getKey());
                         actualizaciones.add(e);
                         actualizaciones.add(e2);
                         ac.setActualizaciones(actualizaciones);
@@ -192,6 +198,7 @@ public class Logica implements LogicaInter{
                  
                  
                  } else if (j.getKey() == 38){
+                     System.out.println("MUEVE A ARRIBA ");
                      
                       matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
@@ -249,13 +256,14 @@ public class Logica implements LogicaInter{
                          */
                      
               }else if (j.getKey() == 39) {
+                        System.out.println("MUEVE A DERECHA");
                         matriz[j.getX()][j.getY() + 1] = matriz[j.getX()][j.getY()];
                         matriz[j.getX()][j.getY()] = "0";
                         Elemento e = new Elemento(j.getX(), j.getY() + 1, matriz[j.getX()][j.getY() + 1], j.getMemo());
                         Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
                         actualizaciones.add(e);
                         actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
+                        ac.setActualizaciones(actualizaciones);}
                    // if (!(matriz[j.getX()][j.getY() + 1]).equals("3") && !(matriz[j.getX()][j.getY() + 1]).equals("A") && !(matriz[j.getX()][j.getY() + 1]).equals("B") && !(matriz[j.getX()][j.getY() + 1]).equals("C") && !(matriz[j.getX()][j.getY() + 1]).equals("D")) {
                                   /*if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
                             String data = matriz[j.getX() + 1][j.getY()];
@@ -310,14 +318,14 @@ public class Logica implements LogicaInter{
              
                      
                  
-                 }
+                   
             salasMatrices.get(idsala).setMatriz(matriz);
          try {
              services.setSalasMat(salasMatrices);
          } catch (ServicesException ex) {
              Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
          }
-             System.out.println("LOGICA MOVER"+ ac);
+             //System.out.println("LOGICA MOVER "+ ac.getActualizaciones().size());
              return ac;
              
              }

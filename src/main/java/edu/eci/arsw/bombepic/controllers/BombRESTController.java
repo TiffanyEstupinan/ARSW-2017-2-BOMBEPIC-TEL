@@ -133,7 +133,7 @@ public class BombRESTController {
     public ResponseEntity<?> getInformacion(@PathVariable(name = "salanum") String salanum) {
         
         try {
-            System.out.println("IMPRIMIENDO EN GETINFO DEL REST " + services.getInfo(Integer.parseInt(salanum)));
+            //System.out.println("IMPRIMIENDO EN GETINFO DEL REST " + services.getInfo(Integer.parseInt(salanum)));
             return new ResponseEntity<>(services.getInfo(Integer.parseInt(salanum)),HttpStatus.ACCEPTED);
         } catch (NumberFormatException | ServicesException ex){
             Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);

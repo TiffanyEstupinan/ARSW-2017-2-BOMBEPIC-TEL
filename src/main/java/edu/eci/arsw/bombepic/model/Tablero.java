@@ -29,7 +29,7 @@ public  class Tablero {
         
         
         
-          //recubre el tablero de pared irrompible 
+          //recubre el tablero de pared rompible 
         for (int i = 0; i < fil; i++) {
            tabl[i][0]=String.valueOf(3);
            tabl[i][col-1]=String.valueOf(3);

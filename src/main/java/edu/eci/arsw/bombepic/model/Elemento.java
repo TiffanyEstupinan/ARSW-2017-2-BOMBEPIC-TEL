@@ -15,35 +15,54 @@ public class Elemento {
     private String key ;
     private int mem;
     
-    public Elemento(){};
+    public Elemento (){}
 
-    Elemento(int x, int y, String string, int i) {
-               this.x = x;
-               this.y = y;
-               this.key = key;
-               this.mem=mem;
-             }
+    public Elemento(int x, int y, String key,int mem) {
+        this.x = x;
+        this.y = y;
+        this.key = key;
+        this.mem=mem;
+        
+    }
 
+    /**
+     * @return the x
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * @param x the x to set
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * @return the y
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * @param y the y to set
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * @return the key
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * @param key the key to set
+     */
     public void setKey(String key) {
         this.key = key;
     }
@@ -55,6 +74,4 @@ public class Elemento {
     public void setMem(int mem) {
         this.mem = mem;
     }
-    
-    
 }

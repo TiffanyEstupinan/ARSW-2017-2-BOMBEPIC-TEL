@@ -39,11 +39,13 @@ public class STOMPMessagesHandler {
     @MessageMapping("/mover.{idsala}")
     public void mover(@DestinationVariable int idsala, PosJugador j) {
         synchronized (Lock) {
-            
             ActualizaJuego ac = Logic.mover(idsala, j);
+            //System.out.println(ac.getActualizaciones().size());
             if (ac.getActualizaciones()!=null){
+              //  System.out.println("hooola");
+              //  System.out.println(ac.getActualizaciones().size());
                 msgt.convertAndSend("/topic/actualizarJuego." + String.valueOf(idsala), ac.getActualizaciones());
-                System.out.println(" RECIBE " +  ac);
+                System.out.println(" RECIBE " +  ac.getActualizaciones());
                 
                 if (ac.getRompibles()){
                     ac.setRompibles(false);

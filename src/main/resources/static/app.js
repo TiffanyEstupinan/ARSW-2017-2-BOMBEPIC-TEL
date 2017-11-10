@@ -7,8 +7,8 @@ var app =(function(){
 
     var stompClient = null;
     var myplayer = null;
-    var myposx = 0;
-    var myposy = 0;
+    var myposx = 1;
+    var myposy = 1;
     var ctx = null;
     var mymem = null;
     var shift = 0;
@@ -88,7 +88,7 @@ var app =(function(){
                 if (36 < key && key < 41) {
                     ky = key;
                     alert("MOVER PERSONAJE !!");
-                    stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, key: key, memo: mymem}));
+                    stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, key: ky, memo: mymem}));
                          }
 
                 };
@@ -221,13 +221,14 @@ return {
                 setTimeout(update, 300);
 
                 stompClient.subscribe('/topic/actualizarJuego.' + sessionStorage.getItem('sala'), function (data) {
-                    var tablero = JSON.parse(data.body);
-                    //alert("actualiza !");
+                   var tablero = JSON.parse(data.body);
+                   console.log("lo que sea " + tablero[0]);
                    for (i = 0; i < tablero.length; i++) {
                                 
-                         console.log(tablero[i]);
+                         console.log(tablero[i].key=="A");
                         if (tablero[i].key === "A") {
                             console.log("a mover el bote "  );
+                            console.log(tablero[i].key);
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player1/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                             if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;

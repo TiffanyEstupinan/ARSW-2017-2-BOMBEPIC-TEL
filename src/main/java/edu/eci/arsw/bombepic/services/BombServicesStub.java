@@ -57,18 +57,12 @@ public class BombServicesStub implements BombServices{
 
     @Override
     public String[][] getTablero() throws ServicesException {
-        System.out.println("QUE ES ESTO EN GETABLERO DEL STUB" + mat);
-        if (mat==null){
-           
-                
+        if (mat==null){               
             try {
                 mat=Tablero.tablero();
-                System.out.println("QUE ES ESTO EN GETABLERO DEL STUB!!!" + mat);
             } catch (IOException ex) {
                 Logger.getLogger(BombServicesStub.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
-        
         }
         return mat;
                
