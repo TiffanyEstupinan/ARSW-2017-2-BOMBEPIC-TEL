@@ -55,14 +55,15 @@ public  class Tablero {
         
        
       
-         //pone los jugadores en el tablero 
+    //pone los jugadores en el tablero 
          
         tabl[1][1]="A";
         tabl[fil-2][1]="B";
         tabl[1][col-2]="C";
         tabl[fil-2][col-2]="D";
         
-
+//int fil=28;
+//int col=36;
         return tabl;
     }
 }

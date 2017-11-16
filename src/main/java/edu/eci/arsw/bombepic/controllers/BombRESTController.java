@@ -41,7 +41,7 @@ public class BombRESTController {
     SimpMessagingTemplate msgt;
      
      @RequestMapping(path = "/{salanum}/players",method = RequestMethod.PUT)
-     public ResponseEntity<?> agregarJugador(@PathVariable(name="salanum")String salanum,@RequestBody Jugador p){
+     public ResponseEntity<?> agregarJugador(@PathVariable(name="salanum")String salanum,@RequestBody Jugador p) throws ServicesException, InterruptedException{
          synchronized (services){
              try {
                  if(services.getJugadores(Integer.parseInt(salanum)).size()< 4 ){
@@ -53,14 +53,19 @@ public class BombRESTController {
                     
                     if(playBombers.size()==4){
                         Thread.sleep(50);
-                        msgt.convertAndSend("/topic/Play."+String.valueOf(salanum),p.getnombre());
+                        //msgt.convertAndSend("/topic/Play."+String.valueOf(salanum),p.getnombre());
                         services.setSalaDisponible(services.getSalaDisponible()+1);
+                        msgt.convertAndSend("/topic/Play."+String.valueOf(salanum),p.getnombre());
+
                     }
-                    
+                     System.out.println(temp + String.valueOf(temp.size()));
                     msgt.convertAndSend("/topic/mostrarJugadores",temp);
-                     
-                 }
-             } catch (Exception ex) {
+                    
+                 }else{
+                     throw  new ServicesException("No se puede ingresar a la sala porque está llena ");
+                            
+                            }
+             } catch (ServicesException ex) {
                    Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
                    return new ResponseEntity<>(ex.getLocalizedMessage(),HttpStatus.BAD_REQUEST);
                  
@@ -100,11 +105,15 @@ public class BombRESTController {
         }
     }
        
-        @RequestMapping(path = "/{salanum}/tablero",method = RequestMethod.GET)
-    public ResponseEntity<?> getTablero(@PathVariable(name = "salanum") String salanum) {
-            System.out.println("IMPRIMIENDO EN GETTABLERO RESTCONTROLLER   " + salanum);
+        @RequestMapping(path = "/tablero",method = RequestMethod.GET)
+    public ResponseEntity<?> getTablero() {
+            
         try {
-            return new ResponseEntity<>(services.getTablero(),HttpStatus.ACCEPTED);
+             ArrayList<Object> informacion = new ArrayList();
+            informacion.add(services.getTablero());
+            
+            
+            return new ResponseEntity<>(informacion,HttpStatus.ACCEPTED);
          
         } catch (ServicesException ex) {
             Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,22 +149,7 @@ public class BombRESTController {
             return new ResponseEntity<>("/{salanum}/ must be an integer value.",HttpStatus.BAD_REQUEST);
         }
     }
-     
-      @RequestMapping(path = "/tablero",method = RequestMethod.GET)
-    public ResponseEntity<?> getTablero() {
-        
-        try {
-            ArrayList<Object> informacion = new ArrayList();
-            informacion.add(services.getTablero());
-            return new ResponseEntity<>(informacion,HttpStatus.ACCEPTED);
-        } catch (ServicesException ex) {
-            Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>(ex.getLocalizedMessage(),HttpStatus.NOT_FOUND);
-        } catch (NumberFormatException ex){
-            Logger.getLogger(BombRESTController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("/{salanum}/ must be an integer value.",HttpStatus.BAD_REQUEST);
-        }
-    }
+
      
              
      

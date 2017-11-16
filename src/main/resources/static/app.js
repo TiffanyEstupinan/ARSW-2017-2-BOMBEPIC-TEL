@@ -1,5 +1,5 @@
 
-
+var prueba2=null;
 
 
 
@@ -7,8 +7,8 @@ var app =(function(){
 
     var stompClient = null;
     var myplayer = null;
-    var myposx = 1;
-    var myposy = 1;
+    var myposx = null;
+    var myposy = null;
     var ctx = null;
     var mymem = null;
     var shift = 0;
@@ -16,6 +16,7 @@ var app =(function(){
     var totalFrames = 2;
     var imgs = null;
     var ky = null;
+    var prueba=null;
 //    var playerA = "images/Bombermans/player1/11.gif";
 //    var playerB = "images/Bombermans/player2/11.gif";
 //    var playerC = "images/Bombermans/player3/11.gif";
@@ -86,7 +87,11 @@ var app =(function(){
           
          var moverPersonaje= function(key) {
                 if (36 < key && key < 41) {
-                    ky = key;
+                    ky = key
+                    console.log(myplayer+"myolayer");
+                    console.log(myposx+"x");
+                    console.log(myposy+"y");
+                    
                     alert("MOVER PERSONAJE !!");
                     stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, key: ky, memo: mymem}));
                          }
@@ -171,11 +176,14 @@ return {
                          ctx.font = "bold 18px sans-serif";
                          ctx.fillStyle = "white";
                          ctx.fillText(data[i].nombre +" L= 2", 20, 520);
+                         
 
                      } else if (data[i].nombre === "C") {
                          ctx.font = "bold 18px sans-serif";
                         ctx.fillStyle = "white";
                          ctx.fillText(data[i].nombre, 380, 540);
+                         
+                         
                      } else if (data[i].nombre === "D") {
                         ctx.font = "bold 18px sans-serif";
                          ctx.fillStyle = "white";
@@ -218,26 +226,31 @@ return {
                     }
                 };
 
-                setTimeout(update, 300);
+                setTimeout(update, 1000);
 
                 stompClient.subscribe('/topic/actualizarJuego.' + sessionStorage.getItem('sala'), function (data) {
                    var tablero = JSON.parse(data.body);
-                   console.log("lo que sea " + tablero[0]);
+                   prueba2=JSON.parse(data.body);
+                   
+                   
+                   
                    for (i = 0; i < tablero.length; i++) {
                                 
-                         console.log(tablero[i].key=="A");
+                         console.log(tablero.key=="A");
                         if (tablero[i].key === "A") {
-                            console.log("a mover el bote "  );
+                            console.log("a mover el bote A"  );
                             console.log(tablero[i].key);
+                            console.log(myplayer === tablero[i].key +"sjhdjksahdjkashjkas");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player1/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
-                            if (myplayer === tablero[i].key) {
-                                myposx = tablero[i].x;
-                                myposy = tablero[i].y;
+                           if (myplayer === tablero[i].key) {
+                                    myposx = tablero[i].x;
+                                    myposy = tablero[i].y;
+
 
                            }
 
                         } else if (tablero[i].key === "B") {
-                             console.log("a mover el bote ");
+                             console.log("a mover el bote B");
                            var myObstacle = new bomber(20, 20, "images/Bombermans/Player2/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                            if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;
@@ -245,7 +258,7 @@ return {
                             }
 
                         } else if (tablero[i].key === "C") {
-                             console.log("a mover el bote ");
+                             console.log("a mover el bote C ");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player3/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                             if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;
@@ -253,7 +266,7 @@ return {
                             }
 
                         } else if (tablero[i].key === "D") {
-                             console.log("a mover el bote ");
+                             console.log("a mover el bote D ");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player4/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                             if (myplayer === tablero[i].key) {
                                 myposx = tablero[i].x;
@@ -349,23 +362,21 @@ return {
                     //$.get("/salas/" + sessionStorage.getItem('sala')+ "/info" , function (data) {
                       
                        $.get("/salas/" + sessionStorage.getItem('sala') + "/" + sessionStorage.getItem('identificador'), function (data){ 
-                            myplayer = data;
-                      
-
-
-                        
+                           console.log(data+"data"); 
+                           myplayer = data;
+                             
                             mymem = 2;
-                            if (data === 'A') {
+                            if (data === 'B') {
                                 myposx = 26;
-                               myposy = 10;
-                            } else if (data === 'B') {
+                               myposy = 1;
+                            } else if (data === 'A') {
                                 myposx = 1;
                                 myposy = 1;
-                            } else if (data === 'D') {
+                            } else if (data === 'C') {
                                 myposx = 1;
                                 myposy = 34;
-                            } else if (data === 'C') {
-                                myposx = 23;
+                            } else if (data === 'D') {
+                                myposx = 26;
                                 myposy = 34;
                             }
                         

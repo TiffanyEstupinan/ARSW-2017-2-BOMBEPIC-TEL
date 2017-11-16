@@ -13,10 +13,11 @@ var waitingRoom =(function(){
                     var f=new Date();
                     cad=f.getHours()+":"+f.getMinutes()+":"+f.getSeconds();
                     identificador=nickname+cad;
+                    console.log("nick"+ identificador);
                     $.ajax({
                         url: "salas/"+sala+"/players",
                         type: 'PUT',
-                        data: JSON.stringify({nombre: nickname,alias:nickname+cad}),
+                        data: JSON.stringify({nombre: nickname,nick:nickname+cad}),
                         contentType: "application/json"
                     }).then(
                             function () {
@@ -49,6 +50,7 @@ var waitingRoom =(function(){
                     console.log('Connected: ' + frame);
                     stompClient.subscribe('/topic/mostrarJugadores', function (data) {
                         gana = JSON.parse(data.body);
+                        
                         if (flag===0){
                             if (gana[0].length===4){
                                 location.reload();

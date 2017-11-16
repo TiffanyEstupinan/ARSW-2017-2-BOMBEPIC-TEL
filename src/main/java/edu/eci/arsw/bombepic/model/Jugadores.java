@@ -32,7 +32,7 @@ public class Jugadores {
         Iterator it = ids.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry e = (Map.Entry) it.next();
-                System.out.println(e.getKey() + " " + e.getValue());
+                System.out.println("este es ek oruibas"+e.getKey() + " " + e.getValue());
 
                     }
          }
