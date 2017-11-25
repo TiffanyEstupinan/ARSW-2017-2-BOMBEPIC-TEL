@@ -31,6 +31,10 @@ Hector Fabio Cadavid Rengifo
 
 App Heroku
 -----------
+https://bombtvel.herokuapp.com/
+
+https://circleci.com/gh/Vivs1529Est/ARSW-2017-2-BOMBEPIC-TEL/3
+
 
 
 
