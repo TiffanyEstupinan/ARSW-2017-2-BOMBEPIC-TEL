@@ -13,8 +13,29 @@ import java.util.ArrayList;
  */
 public class ActualizaJuego {
     private ArrayList<Elemento> actualizaciones;
+    private Boolean campiapunto=false;
+    private int puntos;
     private Boolean poderes=false;
     private Boolean rompibles = false;
+    int [] posiciones=new int[2];
+    private String jugador;
+
+     public String getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(String jugador) {
+        this.jugador = jugador;
+    }
+    
+     public int[] getPosiciones() {
+        return posiciones;
+    }
+
+    public void setPosiciones(int[] posiciones) {
+        this.posiciones = posiciones;
+    }
+    
 
     public Boolean getRompibles() {
         return rompibles;
@@ -23,9 +44,7 @@ public class ActualizaJuego {
     public void setRompibles(Boolean rompibles) {
         this.rompibles = rompibles;
     }
-    int [] posiciones=new int[2];
-    private String jugador;
-
+    
     public ArrayList<Elemento> getActualizaciones() {
         return actualizaciones;
     }
@@ -42,21 +61,25 @@ public class ActualizaJuego {
         this.poderes = poderes;
     }
 
-    public int[] getPosiciones() {
-        return posiciones;
+    public Boolean getCampiapunto() {
+        return campiapunto;
     }
 
-    public void setPosiciones(int[] posiciones) {
-        this.posiciones = posiciones;
+    public void setCampiapunto(Boolean campiapunto) {
+        this.campiapunto = campiapunto;
     }
 
-    public String getJugador() {
-        return jugador;
+    public int getPuntos() {
+        return puntos;
     }
 
-    public void setJugador(String jugador) {
-        this.jugador = jugador;
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
+    
+   
+
+   
 
     
     

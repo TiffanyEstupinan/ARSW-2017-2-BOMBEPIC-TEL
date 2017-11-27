@@ -27,10 +27,11 @@ import org.springframework.stereotype.Service;
  *  Flecha izquierda 	37 	
     Flecha arriba 	38 	
     Flecha derecha 	39 	
-    Flecha abajo 	40 	
+    Flecha abajo 	40 
+    Espacio             32
     * 
     * 
-    * //3 es un obstaculo
+    //3 es un obstaculo
     //0 un espacio en blanco
     //2 pared comible
     //letras en mayusculas son jugadores
@@ -44,7 +45,7 @@ public class Logica implements LogicaInter{
      @Autowired
     BombServices services;
     private ConcurrentHashMap<Integer, Sala> salasMatrices ;
-    Elemento bomba; 
+   
 
     public Logica() {
     }
@@ -61,7 +62,7 @@ public class Logica implements LogicaInter{
         ActualizaJuego ac = new ActualizaJuego();
         if (!salasMatrices.containsKey(idsala)) {
              try {
-                 Sala sala = new Sala(Tablero.tablero());
+                 Sala sala = new Sala(Tablero.tablero(), Tablero.puntos);
                  salasMatrices.put(idsala, sala);
              } catch (IOException ex) {
                  Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,253 +71,78 @@ public class Logica implements LogicaInter{
         
         ArrayList<Elemento> actualizaciones = new ArrayList();
         String[][] matriz = salasMatrices.get(idsala).getMatriz();
-        
-        //para el jugador 
-        System.out.println(matriz[j.getX()][j.getY()]);
-        System.out.println("hioooaladsadsa");
-        if (j.getKey() == 40) {
-                        System.out.println("MUEVE A ABAJO ");
-                        matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
-                    }
-                 
-                 
-                    /*if (!(matriz[j.getX() + 1][j.getY()]).equals("3") && !(matriz[j.getX() + 1][j.getY()]).equals("A") && !(matriz[j.getX() + 1][j.getY()]).equals("B") && !(matriz[j.getX() + 1][j.getY()]).equals("C") && !(matriz[j.getX() + 1][j.getY()]).equals("D")) {
-                        if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
-                            String data = matriz[j.getX() + 1][j.getY()];
-                            int[] answ = muerte(data, matriz);
-                            matriz[answ[0]][answ[1]] = data;
-                            System.out.println("explota bomba");
-                            
-                         
-                            
-                            
-                            Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                            Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                            Elemento ej= new Elemento(answ[0],answ[1],"0",0);
-                            actualizaciones.add(e);
-                            actualizaciones.add(e2);
-                            actualizaciones.add(ej);
-                            ac.setPosiciones(answ);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
-                            
-                        }
-                         else{ // matar bomberman
-                          
-                            String data = matriz[j.getX()][j.getY()];
-                            matriz[j.getX()][j.getY()] = "0";
-                            int[] answ = muerte(data, matriz);
-                            ac.setPosiciones(answ);
-                            Elemento e = new Elemento(j.getX(), j.getY(), "0", 0);
-                            actualizaciones.add(e);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
-
-                        
-                        }
-                            
-                    }
-                    else{
-                       matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
-                    
-                    }*/
-
-             else if(j.getKey() == 37){
-                // if (!(matriz[j.getX()][j.getY() - 1]).equals("3") && !(matriz[j.getX()][j.getY() - 1]).equals("A") && !(matriz[j.getX()][j.getY() - 1]).equals("B") && !(matriz[j.getX()][j.getY() - 1]).equals("C") && !(matriz[j.getX()][j.getY() - 1]).equals("D")) {
-                        System.out.println("37 A IZQUIERDA ");
-                        matriz[j.getX()][j.getY() - 1] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX(), j.getY() - 1, matriz[j.getX()][j.getY() - 1], j.getMemo());
-                        //Elemento e = new Elemento(j.getX(), j.getY() - 1,Integer.toString(j.getKey()), j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        System.out.println("que es " + e.getKey());
-                        System.out.println("que es2 " + e2.getKey());
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
+        int [] vidas= salasMatrices.get(idsala).getVidas();
+        int puntos = salasMatrices.get(idsala).getPuntos();
+        ac.setPuntos(puntos);
+    
+         switch (j.getKey()) {
+             case 40:{
+                   
+                         //System.out.println("MUEVE A ABAJO ");
+                  if (!(matriz[j.getX() + 1][j.getY()]).equals("3") && !(matriz[j.getX() + 1][j.getY()]).equals("A") && !(matriz[j.getX() + 1][j.getY()]).equals("B") && !(matriz[j.getX() + 1][j.getY()]).equals("C") && !(matriz[j.getX() + 1][j.getY()]).equals("D")) {
+                     matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
+                     matriz[j.getX()][j.getY()] = "0";
+                     Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
+                     Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                     actualizaciones.add(e);
+                     actualizaciones.add(e2);
+                     ac.setActualizaciones(actualizaciones);
+                  }   
+                     break;
+                 }
+             case 37:
+                 {
+                     // if (!(matriz[j.getX()][j.getY() - 1]).equals("3") && !(matriz[j.getX()][j.getY() - 1]).equals("A") && !(matriz[j.getX()][j.getY() - 1]).equals("B") && !(matriz[j.getX()][j.getY() - 1]).equals("C") && !(matriz[j.getX()][j.getY() - 1]).equals("D")) {
+                     // System.out.println("37 A IZQUIERDA ");
                      
-                 
-                    /* if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
-                            String data = matriz[j.getX() + 1][j.getY()];
-                            int[] answ = muerte(data, matriz);
-                            matriz[answ[0]][answ[1]] = data;
-                            System.out.println("explota bomba");
-                            
-                         
-                            
-                            
-                            Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                            Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                            Elemento ej= new Elemento(answ[0],answ[1],"0",0);
-                            actualizaciones.add(e);
-                            actualizaciones.add(e2);
-                            actualizaciones.add(ej);
-                            ac.setPosiciones(answ);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
-                            
-                        }
-                         else{ // matar bomberman
-                          
-                            String data = matriz[j.getX()][j.getY()];
-                            matriz[j.getX()][j.getY()] = "0";
-                            int[] answ = muerte(data, matriz);
-                            ac.setPosiciones(answ);
-                            Elemento e = new Elemento(j.getX(), j.getY(), "0", 0);
-                            actualizaciones.add(e);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
+                if (!(matriz[j.getX()][j.getY() - 1]).equals("3") && !(matriz[j.getX()][j.getY() - 1]).equals("A") && !(matriz[j.getX()][j.getY() - 1]).equals("B") && !(matriz[j.getX()][j.getY() - 1]).equals("C") && !(matriz[j.getX()][j.getY() - 1]).equals("D")) {
 
-                        
-                        }
-   
-                    } 
-                    else{
-                       matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
-                    
-                    } */
-                 
-                 
-                 
-                 
-                 } else if (j.getKey() == 38){
-                     System.out.println("MUEVE A ARRIBA ");
-                     
-                      matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
-                   //  if (!(matriz[j.getX() - 1][j.getY()]).equals("3") && !(matriz[j.getX() - 1][j.getY()]).equals("A") && !(matriz[j.getX() - 1][j.getY()]).equals("B") && !(matriz[j.getX() - 1][j.getY()]).equals("C") && !(matriz[j.getX() - 1][j.getY()]).equals("D")) {
-                        /* if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
-                            String data = matriz[j.getX() + 1][j.getY()];
-                            int[] answ = muerte(data, matriz);
-                            matriz[answ[0]][answ[1]] = data;
-                            System.out.println("explota bomba");
-                            
-                         
-                            
-                            
-                            Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                            Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                            Elemento ej= new Elemento(answ[0],answ[1],"0",0);
-                            actualizaciones.add(e);
-                            actualizaciones.add(e2);
-                            actualizaciones.add(ej);
-                            ac.setPosiciones(answ);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
-                            
-                        }
-                         else{ // matar bomberman
-                          
-                            String data = matriz[j.getX()][j.getY()];
-                            matriz[j.getX()][j.getY()] = "0";
-                            int[] answ = muerte(data, matriz);
-                            ac.setPosiciones(answ);
-                            Elemento e = new Elemento(j.getX(), j.getY(), "0", 0);
-                            actualizaciones.add(e);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
-
-                        
-                        }
-   
+                     matriz[j.getX()][j.getY() - 1] = matriz[j.getX()][j.getY()];
+                     matriz[j.getX()][j.getY()] = "0";
+                     Elemento e = new Elemento(j.getX(), j.getY() - 1, matriz[j.getX()][j.getY() - 1], j.getMemo());
+                     Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                     actualizaciones.add(e);
+                     actualizaciones.add(e2);
+                     ac.setActualizaciones(actualizaciones); 
                     }
-                    else{
-                       matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
-                    
-                    }
-                         */
-                     
-              }else if (j.getKey() == 39) {
-                        System.out.println("MUEVE A DERECHA");
-                        matriz[j.getX()][j.getY() + 1] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX(), j.getY() + 1, matriz[j.getX()][j.getY() + 1], j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);}
-                   // if (!(matriz[j.getX()][j.getY() + 1]).equals("3") && !(matriz[j.getX()][j.getY() + 1]).equals("A") && !(matriz[j.getX()][j.getY() + 1]).equals("B") && !(matriz[j.getX()][j.getY() + 1]).equals("C") && !(matriz[j.getX()][j.getY() + 1]).equals("D")) {
-                                  /*if ((matriz[j.getX() + 1][j.getY()]).equals("2") ) { // si se encuentra una pared rompible 
-                            String data = matriz[j.getX() + 1][j.getY()];
-                            int[] answ = muerte(data, matriz);
-                            matriz[answ[0]][answ[1]] = data;
-                            System.out.println("explota bomba");
-                            
-                         
-                            
-                            
-                            Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                            Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                            Elemento ej= new Elemento(answ[0],answ[1],"0",0);
-                            actualizaciones.add(e);
-                            actualizaciones.add(e2);
-                            actualizaciones.add(ej);
-                            ac.setPosiciones(answ);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
-                            
-                        }
-                         else{ // matar bomberman
-                          
-                            String data = matriz[j.getX()][j.getY()];
-                            matriz[j.getX()][j.getY()] = "0";
-                            int[] answ = muerte(data, matriz);
-                            ac.setPosiciones(answ);
-                            Elemento e = new Elemento(j.getX(), j.getY(), "0", 0);
-                            actualizaciones.add(e);
-                            ac.setJugador(data);
-                            ac.setActualizaciones(actualizaciones);
+                     break;
+                 }
+             case 38:
+                 {
+                     //System.out.println("MUEVE A ARRIBA ");
+                if (!(matriz[j.getX() - 1][j.getY()]).equals("3") && !(matriz[j.getX() - 1][j.getY()]).equals("A") && !(matriz[j.getX() - 1][j.getY()]).equals("B") && !(matriz[j.getX() - 1][j.getY()]).equals("C") && !(matriz[j.getX() - 1][j.getY()]).equals("D")) {
+                     matriz[j.getX() - 1][j.getY()] = matriz[j.getX()][j.getY()];
+                     matriz[j.getX()][j.getY()] = "0";
+                     Elemento e = new Elemento(j.getX() - 1, j.getY(), matriz[j.getX() - 1][j.getY()], j.getMemo());
+                     Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                     actualizaciones.add(e);
+                     actualizaciones.add(e2);
+                     ac.setActualizaciones(actualizaciones);
+                   }
+                     break;
+                 }
+             case 39:
+                 {
+                     //System.out.println("MUEVE A DERECHA");
+                if (!(matriz[j.getX()][j.getY() + 1]).equals("3") && !(matriz[j.getX()][j.getY() + 1]).equals("A") && !(matriz[j.getX()][j.getY() + 1]).equals("B") && !(matriz[j.getX()][j.getY() + 1]).equals("C") && !(matriz[j.getX()][j.getY() + 1]).equals("D")) {
 
-                        
-                        }
-   
-                    }
-                    else{ //solo avanzar 
-                        matriz[j.getX() + 1][j.getY()] = matriz[j.getX()][j.getY()];
-                        matriz[j.getX()][j.getY()] = "0";
-                        Elemento e = new Elemento(j.getX() + 1, j.getY(), matriz[j.getX() + 1][j.getY()], j.getMemo());
-                        Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
-                        actualizaciones.add(e);
-                        actualizaciones.add(e2);
-                        ac.setActualizaciones(actualizaciones);
-           
-                }*/
-
-              
-              
-              
-              //}
-             
+                     matriz[j.getX()][j.getY() + 1] = matriz[j.getX()][j.getY()];
+                     matriz[j.getX()][j.getY()] = "0";
+                     Elemento e = new Elemento(j.getX(), j.getY() + 1, matriz[j.getX()][j.getY() + 1], j.getMemo());
+                     Elemento e2 = new Elemento(j.getX(), j.getY(), "0", 0);
+                     actualizaciones.add(e);
+                     actualizaciones.add(e2);
+                     ac.setActualizaciones(actualizaciones);
                      
+                    }
+                     break;
+                 }
+                 
+            
+             default:
+                 break;
+         }
+                  
                  
                    
             salasMatrices.get(idsala).setMatriz(matriz);

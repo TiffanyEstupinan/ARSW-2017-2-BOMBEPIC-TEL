@@ -27,7 +27,8 @@ var app =(function(){
     var nicknameD;
     var fil=28;
     var col=36;
-    var cont=0;
+    var cont=0
+    var puntos=0;
     
     
     
@@ -86,13 +87,11 @@ var app =(function(){
           };
           
          var moverPersonaje= function(key) {
-                if (36 < key && key < 41) {
+                if (31 < key && key < 41) {
                     ky = key
-                    console.log(myplayer+"myolayer");
-                    console.log(myposx+"x");
-                    console.log(myposy+"y");
+     
                     
-                    alert("MOVER PERSONAJE !!");
+                    //alert("MOVER PERSONAJE !!");
                     stompClient.send("/app/mover." + sessionStorage.getItem('sala'), {}, JSON.stringify({x: myposx, y: myposy, key: ky, memo: mymem}));
                          }
 
@@ -123,46 +122,39 @@ return {
              for (i = 0; i < fil; i++) {
                  for (j = 0; j < col; j++) {
                      if (tablero[i][j] === "3") {
-                               bloque(20, 20, "blue", j * 20, i * 20);
-                           
-
-
-                     } else if (tablero[i][j] === "0") {
-                        bloque(20, 20, "black", j * 20, i * 20);
-
+                               bloque(20, 20, "purple", j * 20, i * 20);
+     
 
                      } else if (tablero[i][j] === "2") {
                         bloque(20, 20, "red", j * 20, i * 20);
-
+                        
+                     } else if (tablero[i][j] === "4") {
+                        bloque(20, 20, "green", j * 20, i * 20);
 
                 //DIBUJANDO JUGADORES        
 
                      } else if (tablero[i][j] === "A") {
-                        bloque(20, 20, "black", j * 30, i * 30);
+                        bloque(20, 20, "yellow", j * 30, i * 30);
                         bomberman(20, 20, "images/Bombermans/Player1/11.gif", j * 20, i * 20, "image");
 
 
                      } else if (tablero[i][j] === "B") {
-                       bloque(20, 20, "black", j * 20, i * 20);
+                       bloque(20, 20, "blue", j * 20, i * 20);
                        bomberman(20, 20, "images/Bombermans/Player2/11.gif", j * 20, i * 20, "image");
                         
                         
                      } else if (tablero[i][j] === "C") {
-                         bloque(20, 20, "black", j * 20, i * 20);
+                         bloque(20, 20, "red", j * 20, i * 20);
                          bomberman(20, 20, "images/Bombermans/Player3/11.gif", j * 20, i * 20, "image");
                          
                          
 
                     } else if (tablero[i][j] === "D") {
-                        bloque(20, 20, "black", j * 20, i * 20);
+                        bloque(20, 20, "green", j * 20, i * 20);
                         bomberman(20, 20, "images/Bombermans/Player4/11.gif", j * 20, i * 20, "image");
                  }
              }}
-            /* var myObstacle = new bomberman(20, 20, "images/Bombermans/Player1/11.gif", 0 * 20, 26 * 20.2, "image");
-             var myObstacle = new bomberman(20, 20, "images/Bombermans/Player2/11.gif", 0 * 20, 25 * 20.2, "image");
-             var myObstacle = new bomberman(20, 20, "images/Bombermans/Player3/11.gif", 19 * 20, 26 * 20.2, "image");
-             var myObstacle = new bomberman(20, 20, "images/Bombermans/Player4/11.gif", 9 * 20, 25 * 20.2, "image");
-             */
+             
              $.get("/salas/" + sessionStorage.getItem('sala') + "/info", function (data) {
                 for (i = 0; i < data.length; i++) {
                      if (data[i].alias === "A") {
@@ -201,7 +193,7 @@ return {
                 var socket = new SockJS('/stompendpoint');
                 stompClient = Stomp.over(socket);
                      
-         stompClient.connect({}, function (frame) {
+                stompClient.connect({}, function (frame) {
                 console.log('Connected: ' + frame);
                 var $worked = $("#worked");
                 
@@ -234,65 +226,102 @@ return {
                    
                    
                    
-                   for (i = 0; i < tablero.length; i++) {
-                                
-                         console.log(tablero.key=="A");
-                        if (tablero[i].key === "A") {
-                            console.log("a mover el bote A"  );
-                            console.log(tablero[i].key);
-                            console.log(myplayer === tablero[i].key +"sjhdjksahdjkashjkas");
+                        console.log(tablero[0].key)   
+     //SE MUEVE A***************************************************************************                    
+                        if (tablero[0].key === "A" )
+                        {   //console.log("a mover el bote A"  );
+                            console.log(tablero[0].key);
+                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player1/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
-                           if (myplayer === tablero[i].key) {
-                                    myposx = tablero[i].x;
-                                    myposy = tablero[i].y;
-
-
-                           }
-
-                        } else if (tablero[i].key === "B") {
-                             console.log("a mover el bote B");
-                           var myObstacle = new bomber(20, 20, "images/Bombermans/Player2/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
-                           if (myplayer === tablero[i].key) {
-                                myposx = tablero[i].x;
-                                myposy = tablero[i].y;
+                           if (myplayer === tablero[0].key) {
+                                    myposx = tablero[0].x;
+                                    myposy = tablero[0].y;
+                                } 
+                            var myObstacle = new bloque(20, 20, "yellow", 20 * tablero[1].y, 20 * tablero[1].x);
+                        console.log(myplayer);    
+                        if (myplayer==="A"){
+                                puntos+=1;
+                                $("#puntaje").text(puntos);
                             }
-
-                        } else if (tablero[i].key === "C") {
-                             console.log("a mover el bote C ");
-                            var myObstacle = new bomber(20, 20, "images/Bombermans/Player3/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
-                            if (myplayer === tablero[i].key) {
-                                myposx = tablero[i].x;
-                                myposy = tablero[i].y;
-                            }
-
-                        } else if (tablero[i].key === "D") {
-                             console.log("a mover el bote D ");
-                            var myObstacle = new bomber(20, 20, "images/Bombermans/Player4/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
-                            if (myplayer === tablero[i].key) {
-                                myposx = tablero[i].x;
-                                myposy = tablero[i].y;
-                            }
-
-                        } else if (tablero[i].key === "0") {
-                            var myObstacle = new bloque(20, 20, "black", 20 * tablero[i].y, 20 * tablero[i].x);
-
-                        } else if (tablero[i].key === "1") {
-                            var myObstacle = new bloque(20, 20, "black", 20 * tablero[i].y, 20 * tablero[i].x);
-
-
-                        } else if (tablero[i].key === "2") {
-                            var myObstacle = new bloque(20, 20, "black", 20 * tablero[i].y, 20 * tablero[i].x);
-
-
-
-
+                         
+                                                      
+                            
                         }
-                    }
+                        else if (tablero[0].key === "B" )
+                        {   //console.log("a mover el bote A"  );
+                            console.log(tablero[0].key);
+                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
+                            var myObstacle = new bomber(20, 20, "images/Bombermans/Player2/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
+                           if (myplayer === tablero[0].key) {
+                                    myposx = tablero[0].x;
+                                    myposy = tablero[0].y;
+                                } 
+                            var myObstacle = new bloque(20, 20, "green", 20 * tablero[1].y, 20 * tablero[1].x);
+                            if (myplayer==="B"){
+                                puntos+=1;
+                                $("#puntaje").text(puntos);
+                            }
+                         
+                                                      
+                            
+                        }
+                         else if (tablero[0].key === "C" )
+                        {   //console.log("a mover el bote A"  );
+                            console.log(tablero[0].key);
+                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
+                            var myObstacle = new bomber(20, 20, "images/Bombermans/Player3/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
+                           if (myplayer === tablero[0].key) {
+                                    myposx = tablero[0].x;
+                                    myposy = tablero[0].y;
+                                } 
+                            var myObstacle = new bloque(20, 20, "red", 20 * tablero[1].y, 20 * tablero[1].x);
+                            if (myplayer==="C"){
+                                puntos+=1;
+                                $("#puntaje").text(puntos);
+                            }
+                         
+                                                      
+                            
+                        } 
+                        
+                         else if (tablero[0].key === "D" )
+                        {   //console.log("a mover el bote A"  );
+                            console.log(tablero[0].key);
+                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
+                            var myObstacle = new bomber(20, 20, "images/Bombermans/Player4/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
+                           if (myplayer === tablero[0].key) {
+                                    myposx = tablero[0].x;
+                                    myposy = tablero[0].y;
+                                } 
+                            var myObstacle = new bloque(20, 20, "blue", 20 * tablero[1].y, 20 * tablero[1].x);
+                            if (myplayer==="D"){
+                                puntos+=1;
+                                $("#puntaje").text(puntos);
+                            }
+                         
+                                                      
+                            
+                        }
+  
+                        
+                        
+                        if (tablero[i].key === "1") {
+                            var myObstacle = new bloque(20, 20, "black", 20 * tablero[i].y, 20 * tablero[i].x);
+                        }
+                        if (tablero[i].key === "2") {
+                            var myObstacle = new bloque(20, 20, "black", 20 * tablero[i].y, 20 * tablero[i].x);
+                        }
+                         if (tablero[i].key === "3") {
+                            var myObstacle = new bloque(20, 20, "purple", 20 * tablero[i].y, 20 * tablero[i].x);
+                        }
+                      
 
+               
+                       
+                    
+                    
+                    
                 });
-
-
-
 
 
                 stompClient.subscribe('/topic/findejuego.' + sessionStorage.getItem('sala'), function (data) {
@@ -334,7 +363,7 @@ return {
             this.cargarsalas();
            },
            
-    
+     
                 
                 
         init: function () {
@@ -367,7 +396,7 @@ return {
                              
                             mymem = 2;
                             if (data === 'B') {
-                                myposx = 26;
+                               myposx = 26;
                                myposy = 1;
                             } else if (data === 'A') {
                                 myposx = 1;

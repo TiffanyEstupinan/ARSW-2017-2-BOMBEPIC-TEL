@@ -40,16 +40,14 @@ public class STOMPMessagesHandler {
     public void mover(@DestinationVariable int idsala, PosJugador j) {
         synchronized (Lock) {
             ActualizaJuego ac = Logic.mover(idsala, j);
-            //System.out.println(ac.getActualizaciones().size());
             if (ac.getActualizaciones()!=null){
-              //  System.out.println("hooola");
-              //  System.out.println(ac.getActualizaciones().size());
+             
                 msgt.convertAndSend("/topic/actualizarJuego." + String.valueOf(idsala), ac.getActualizaciones());
                 System.out.println(" RECIBE " +  ac.getActualizaciones());
                 
                 if (ac.getRompibles()){
                     ac.setRompibles(false);
-                    msgt.convertAndSend("/topic/paredrompible."+String.valueOf(idsala), ac.getRompibles()); 
+                    msgt.convertAndSend("/topic/ ."+String.valueOf(idsala), ac.getRompibles()); 
                 }
                 else{
                     msgt.convertAndSend("/topic/"+String.valueOf(idsala)+'/'+ac.getJugador(), ac.getPosiciones());  

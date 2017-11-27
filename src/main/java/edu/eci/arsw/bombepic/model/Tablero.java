@@ -19,17 +19,19 @@ import java.util.logging.Logger;
  */
 public  class Tablero {
     public  static String[][] tabl;
+    public static int puntos; 
     
     
     public static String [][] tablero() throws IOException{
         
         int fil=28;
         int col=36;
+        puntos =200;
         tabl=new String[fil][col];
         
         
         
-          //recubre el tablero de pared rompible 
+          //recubre el tablero de pared 
         for (int i = 0; i < fil; i++) {
            tabl[i][0]=String.valueOf(3);
            tabl[i][col-1]=String.valueOf(3);

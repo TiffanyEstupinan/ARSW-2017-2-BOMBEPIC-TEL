@@ -8,6 +8,7 @@ package edu.eci.arsw.bombepic.controllers;
 
 
 import edu.eci.arsw.bombepic.model.Jugador;
+import edu.eci.arsw.bombepic.model.Tiempo;
 import org.springframework.web.bind.annotation.PathVariable;
 import edu.eci.arsw.bombepic.services.BombServices;
 import edu.eci.arsw.bombepic.services.ServicesException;
@@ -51,8 +52,10 @@ public class BombRESTController {
                     
                     temp.add(playBombers);
                     
-                    if(playBombers.size()==4){
+                    if(playBombers.size()==2){ // SE MODIFICO PARA PRUEBAS 
                         Thread.sleep(50);
+                        new Tiempo(Integer.parseInt(salanum),p.getnombre(),msgt).start();
+                        services.setSalaDisponible(services.getSalaDisponible()+1);
                         //msgt.convertAndSend("/topic/Play."+String.valueOf(salanum),p.getnombre());
                         services.setSalaDisponible(services.getSalaDisponible()+1);
                         msgt.convertAndSend("/topic/Play."+String.valueOf(salanum),p.getnombre());

@@ -12,7 +12,8 @@ package edu.eci.arsw.bombepic.model;
 public class Sala {
     String [][] matriz;
     int puntos;
-    int [] vidas= new int [1];
+    int [] vidas= new int [4];
+
 
     
 
@@ -40,8 +41,12 @@ public class Sala {
         this.vidas = vidas;
     }
 
-    public Sala(String[][] matriz) {
+    public Sala(String[][] matriz, int puntos ) {
         this.matriz = matriz;
+        this.puntos=puntos; 
+        for (int i=0 ; i<4 ;i++){
+            vidas[i]=2;
+        }
         
     }
     
