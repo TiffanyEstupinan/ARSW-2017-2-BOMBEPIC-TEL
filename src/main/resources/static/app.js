@@ -28,9 +28,10 @@ var app =(function(){
     var fil=28;
     var col=36;
     var cont=0
-    var puntos=0;
-    
-    
+    var puntosA=0;
+    var puntosB=0;
+    var puntosC=0;
+    var puntosD=0;
     
     var  selectImage=function() {
         if (ky === 37) {
@@ -240,8 +241,8 @@ return {
                             var myObstacle = new bloque(20, 20, "yellow", 20 * tablero[1].y, 20 * tablero[1].x);
                         console.log(myplayer);    
                         if (myplayer==="A"){
-                                puntos+=1;
-                                $("#puntaje").text(puntos);
+                                puntosA+=1;
+                                $("#puntaje").text(puntosA);
                             }
                          
                                                       
@@ -258,8 +259,8 @@ return {
                                 } 
                             var myObstacle = new bloque(20, 20, "green", 20 * tablero[1].y, 20 * tablero[1].x);
                             if (myplayer==="B"){
-                                puntos+=1;
-                                $("#puntaje").text(puntos);
+                                puntosB+=1;
+                                $("#puntaje").text(puntosB);
                             }
                          
                                                       
@@ -276,8 +277,8 @@ return {
                                 } 
                             var myObstacle = new bloque(20, 20, "red", 20 * tablero[1].y, 20 * tablero[1].x);
                             if (myplayer==="C"){
-                                puntos+=1;
-                                $("#puntaje").text(puntos);
+                                puntosC+=1;
+                                $("#puntaje").text(puntosC);
                             }
                          
                                                       
@@ -287,7 +288,7 @@ return {
                          else if (tablero[0].key === "D" )
                         {   //console.log("a mover el bote A"  );
                             console.log(tablero[0].key);
-                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
+                            console.log(myplayer === tablero[0].key );
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player4/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                            if (myplayer === tablero[0].key) {
                                     myposx = tablero[0].x;
@@ -295,8 +296,8 @@ return {
                                 } 
                             var myObstacle = new bloque(20, 20, "blue", 20 * tablero[1].y, 20 * tablero[1].x);
                             if (myplayer==="D"){
-                                puntos+=1;
-                                $("#puntaje").text(puntos);
+                                puntosD+=1;
+                                $("#puntaje").text(puntosD);
                             }
                          
                                                       
@@ -325,6 +326,20 @@ return {
 
 
                 stompClient.subscribe('/topic/findejuego.' + sessionStorage.getItem('sala'), function (data) {
+                    
+                    if ( puntosA>puntosB && puntosA>puntosC && puntosA>puntosD) {
+                        $("#ganador").text("EL GANANOR ES Amarillin");
+                    }
+                    else if ( puntosB>puntosC && puntosB>puntosD && puntosB>puntosA) {
+                        $("#ganador").text("EL GANANOR ES Verdin");
+                    }
+                    else if ( puntosC>puntosB && puntosC>puntosD && puntosC>puntosA) {
+                        $("#ganador").text( "EL GANANOR ES Rojin");
+                    }
+                    else if ( puntosD>puntosC && puntosD>puntosB && puntosD>puntosA) {
+                        $("#ganador").text( "EL GANANOR ES Azulin");
+                    }
+                        
                     var gana = data.body;
                     var image = new Image();
                     image.src = gana;
