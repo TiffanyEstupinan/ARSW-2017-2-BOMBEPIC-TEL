@@ -239,12 +239,13 @@ return {
                                     myposy = tablero[0].y;
                                 } 
                             var myObstacle = new bloque(20, 20, "yellow", 20 * tablero[1].y, 20 * tablero[1].x);
-                            console.log(myplayer);    
+                            var name=(sessionStorage.nickname);   
+                            $("#nick").text(name);
                            if (myplayer==="A"){
                                 puntosA+=1;
                                 $("#puntaje").text(puntosA);
                             }
-                         
+                            
                                                       
                             
                         }
@@ -258,6 +259,8 @@ return {
                                     myposy = tablero[0].y;
                                 } 
                             var myObstacle = new bloque(20, 20, "green", 20 * tablero[1].y, 20 * tablero[1].x);
+                            var name=(sessionStorage.nickname);   
+                            $("#nick").text(name);
                             if (myplayer==="B"){
                                 puntosB+=1;
                                 $("#puntaje").text(puntosB);
@@ -276,6 +279,8 @@ return {
                                     myposy = tablero[0].y;
                                 } 
                             var myObstacle = new bloque(20, 20, "red", 20 * tablero[1].y, 20 * tablero[1].x);
+                            var name=(sessionStorage.nickname);   
+                            $("#nick").text(name);
                             if (myplayer==="C"){
                                 puntosC+=1;
                                 $("#puntaje").text(puntosC);
@@ -295,6 +300,8 @@ return {
                                     myposy = tablero[0].y;
                                 } 
                             var myObstacle = new bloque(20, 20, "blue", 20 * tablero[1].y, 20 * tablero[1].x);
+                             var name=(sessionStorage.nickname);   
+                            $("#nick").text(name);
                             if (myplayer==="D"){
                                 puntosD+=1;
                                 $("#puntaje").text(puntosD);
@@ -305,7 +312,6 @@ return {
                         }
   
                         
-                        
                         if (tablero[i].key === "1") {
                             var myObstacle = new bloque(20, 20, "black", 20 * tablero[i].y, 20 * tablero[i].x);
                         }
@@ -315,6 +321,9 @@ return {
                          if (tablero[i].key === "3") {
                             var myObstacle = new bloque(20, 20, "purple", 20 * tablero[i].y, 20 * tablero[i].x);
                         }
+//                        if (tablero[i].key === "4") {
+//                            var myObstacle = new bloque(20, 20, "orange", 20 * tablero[i].y, 20 * tablero[i].x);
+//                        }
                       
 
                
@@ -330,7 +339,7 @@ return {
                     var image = new Image();
                     image.src = gana;
                     image.onload = function () {
-                        ctx.drawImage(image, 160, 155,600,450);
+                        ctx.drawImage(image, 85, 85,600,450);
                     };
                     if ( puntosA>puntosB && puntosA>puntosC && puntosA>puntosD) {
                         $("#ganador").text("EL GANANOR ES Amarillin");
