@@ -127,7 +127,7 @@ return {
      
 
                      } else if (tablero[i][j] === "2") {
-                        bloque(20, 20, "red", j * 20, i * 20);
+                        bloque(20, 20, "black", j * 20, i * 20);
                         
                      } else if (tablero[i][j] === "4") {
                         bloque(20, 20, "green", j * 20, i * 20);
@@ -232,15 +232,15 @@ return {
                         if (tablero[0].key === "A" )
                         {   //console.log("a mover el bote A"  );
                             console.log(tablero[0].key);
-                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
+                            //console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player1/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                            if (myplayer === tablero[0].key) {
                                     myposx = tablero[0].x;
                                     myposy = tablero[0].y;
                                 } 
                             var myObstacle = new bloque(20, 20, "yellow", 20 * tablero[1].y, 20 * tablero[1].x);
-                        console.log(myplayer);    
-                        if (myplayer==="A"){
+                            console.log(myplayer);    
+                           if (myplayer==="A"){
                                 puntosA+=1;
                                 $("#puntaje").text(puntosA);
                             }
@@ -251,7 +251,7 @@ return {
                         else if (tablero[0].key === "B" )
                         {   //console.log("a mover el bote A"  );
                             console.log(tablero[0].key);
-                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
+                            //console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player2/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                            if (myplayer === tablero[0].key) {
                                     myposx = tablero[0].x;
@@ -269,7 +269,7 @@ return {
                          else if (tablero[0].key === "C" )
                         {   //console.log("a mover el bote A"  );
                             console.log(tablero[0].key);
-                            console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
+                           // console.log(myplayer === tablero[0].key +"sjhdjksahdjkashjkas");
                             var myObstacle = new bomber(20, 20, "images/Bombermans/Player3/11.gif", 20 * tablero[i].y, 20 * tablero[i].x, "image");
                            if (myplayer === tablero[0].key) {
                                     myposx = tablero[0].x;
@@ -326,7 +326,12 @@ return {
 
 
                 stompClient.subscribe('/topic/findejuego.' + sessionStorage.getItem('sala'), function (data) {
-                    
+                    var gana = data.body;
+                    var image = new Image();
+                    image.src = gana;
+                    image.onload = function () {
+                        ctx.drawImage(image, 160, 155,600,450);
+                    };
                     if ( puntosA>puntosB && puntosA>puntosC && puntosA>puntosD) {
                         $("#ganador").text("EL GANANOR ES Amarillin");
                     }
@@ -340,12 +345,7 @@ return {
                         $("#ganador").text( "EL GANANOR ES Azulin");
                     }
                         
-                    var gana = data.body;
-                    var image = new Image();
-                    image.src = gana;
-                    image.onload = function () {
-                        ctx.drawImage(image, 160, 155,400,170);
-                    };
+                
                     $("#buttons").append($('<a href="index.html" class="btn yellow">Volver al inicio</a>'));
 
 

@@ -40,8 +40,8 @@ public class BombServicesStub implements BombServices{
     
     @Override
     public void registroJugador(int salanum, Jugador p) throws ServicesException {
-          System.out.println(p.getnick()+"stubnick");
-          System.out.println(p.getnombre()+"stubnombre");
+          //System.out.println(p.getnick()+"stubnick");
+          //System.out.println(p.getnombre()+"stubnombre");
           
           CopyOnWriteArrayList tmp =salasData.get(salanum).getJugadores();
           int a = 65 +tmp.size();

@@ -23,7 +23,9 @@
 	}
 
 	body {
-		line-height: 1;
+		background-color: #FFCC66;
+		background-image: url("images/bombermans.jpg");
+		background-repeat: no-repeat;
 	}
 
 	ol, ul {

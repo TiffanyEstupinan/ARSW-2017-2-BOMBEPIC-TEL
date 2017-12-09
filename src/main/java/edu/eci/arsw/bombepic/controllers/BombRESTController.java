@@ -52,7 +52,7 @@ public class BombRESTController {
                     
                     temp.add(playBombers);
                     
-                    if(playBombers.size()==2){ // SE MODIFICO PARA PRUEBAS 
+                    if(playBombers.size()==4){ 
                         Thread.sleep(50);
                         new Tiempo(Integer.parseInt(salanum),p.getnombre(),msgt).start();
                         services.setSalaDisponible(services.getSalaDisponible()+1);
@@ -61,7 +61,7 @@ public class BombRESTController {
                         msgt.convertAndSend("/topic/Play."+String.valueOf(salanum),p.getnombre());
 
                     }
-                     System.out.println(temp + String.valueOf(temp.size()));
+                    // System.out.println(temp + String.valueOf(temp.size()));
                     msgt.convertAndSend("/topic/mostrarJugadores",temp);
                     
                  }else{
