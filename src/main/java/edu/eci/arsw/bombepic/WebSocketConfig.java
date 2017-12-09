@@ -19,15 +19,24 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/app");        
+        //config.enableSimpleBroker("/topic");
+        
+        config.enableStompBrokerRelay("/topic/").setRelayHost("elephant.rmq.cloudamqp.com").setRelayPort(61613).
+                setClientLogin("zxqfnbej").
+                setClientPasscode("8A-LM6VPuMF7bs1Xkv7hpAdgHGz4KK7W ").
+                setSystemLogin("zxqfnbej").
+                setSystemPasscode("8A-LM6VPuMF7bs1Xkv7hpAdgHGz4KK7W").
+                setVirtualHost("zxqfnbej");
+        config.setApplicationDestinationPrefixes("/app");
+
+            
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/stompendpoint").withSockJS();
-        
+        registry.addEndpoint("/stompendpoint").setAllowedOrigins("*").withSockJS();
     }
+    
     
 
 }
